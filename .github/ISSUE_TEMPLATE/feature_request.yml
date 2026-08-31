@@ -1,0 +1,13 @@
+name: Feature request
+description: Suggest a generator or improvement
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes: { label: Problem, description: What user need would this solve? }
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes: { label: Proposed solution, description: Describe expected options and output. }
+    validations: { required: true }

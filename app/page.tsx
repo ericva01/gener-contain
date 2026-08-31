@@ -1,69 +1,23 @@
-import Image from "next/image";
+import Link from "next/link";
+import { siDocker, siGit, siGithubactions, siKubernetes, siNextdotjs, siNginx, siPostgresql, siSpringboot, type SimpleIcon } from "simple-icons";
+
+const tools = [
+  { name: "Docker", mark: "docker", color: "#2496ed" },
+  { name: "Kubernetes", mark: "k8s", color: "#326ce5" },
+  { name: "Git", mark: "git", color: "#f05032" },
+  { name: "GitHub Actions", mark: "actions", color: "#2088ff" },
+  { name: "Nginx", mark: "nginx", color: "#009639" },
+  { name: "PostgreSQL", mark: "postgres", color: "#4169e1" },
+  { name: "Next.js", mark: "next", color: "#111111" },
+  { name: "Spring Boot", mark: "spring", color: "#6db33f" },
+];
+
+function ToolMark({ type, color }: { type: string; color: string }) {
+  const icons: Record<string, SimpleIcon> = { docker: siDocker, k8s: siKubernetes, git: siGit, actions: siGithubactions, nginx: siNginx, postgres: siPostgresql, next: siNextdotjs, spring: siSpringboot };
+  const icon = icons[type];
+  return <svg viewBox="0 0 24 24" role="img" aria-label={`${icon.title} logo`}><path fill={`#${icon.hex || color.replace("#", "")}`} d={icon.path}/></svg>;
+}
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  return <main className="landing"><section className="landing-hero"><div className="wave-field" aria-hidden="true"><span/><span/><span/><span/><span/></div><div className="hero-orb orb-one"/><div className="hero-orb orb-two"/><div className="landing-copy"><div className="landing-pill"><span/> Open-source DevOps generator</div><h1>Build less config.<br/><em>Ship more software.</em></h1><p>Turn your stack choices into production-ready Docker, CI, Nginx, and Kubernetes files—in seconds, right inside your browser.</p><div className="landing-actions"><Link href="/generator" className="landing-primary">Start building free <span>→</span></Link><Link href="/docs" className="landing-secondary"><i>▶</i> See how it works</Link></div><div className="landing-proof"><span><b>10+</b> config types</span><span><b>100%</b> browser-local</span><span><b>0</b> sign-ups</span></div></div><div className="floating-code" aria-label="Generated configuration preview"><div className="float-tab"><i/><i/><i/><span>deployment.yaml</span><b>Generated</b></div><pre><code><span>apiVersion:</span> apps/v1{`\n`}<span>kind:</span> Deployment{`\n`}<span>metadata:</span>{`\n`}  name: configcraft-app{`\n`}<span>spec:</span>{`\n`}  replicas: <strong>3</strong>{`\n`}  template:{`\n`}    spec:{`\n`}      containers:{`\n`}        - image: app:latest</code></pre><div className="float-success">✓ Production baseline ready</div></div><div className="wave-bottom" aria-hidden="true"><svg viewBox="0 0 1440 150" preserveAspectRatio="none"><path d="M0,85 C240,145 440,20 720,78 C1000,136 1190,40 1440,75 L1440,150 L0,150 Z"/></svg></div></section><section className="logo-section"><p>Built for the tools your team already uses</p><div className="logo-window"><div className="logo-track">{[...tools,...tools].map((tool,index) => <div className="tool-logo" key={`${tool.name}-${index}`}><ToolMark type={tool.mark} color={tool.color}/><span>{tool.name}</span></div>)}</div></div></section><section className="landing-features"><div className="feature-heading"><p className="eyebrow">One workflow, every environment</p><h2>From blank repo to<br/><em>deployment ready.</em></h2><p>Choose what you use. ConfigCraft takes care of the repetitive infrastructure work while keeping every generated line visible and editable.</p></div><div className="feature-steps"><article><span>01</span><div className="step-icon">⌘</div><h3>Describe your stack</h3><p>Pick your framework, runtime, database, and ports from one focused workspace.</p></article><article><span>02</span><div className="step-icon">{`</>`}</div><h3>Preview every file</h3><p>Inspect Docker, CI, proxy, Kubernetes, and publishing files as they update live.</p></article><article><span>03</span><div className="step-icon">↓</div><h3>Download and ship</h3><p>Copy one artifact or export the complete bundle—ready for your repository.</p></article></div></section><section className="landing-cta"><div className="cta-wave" aria-hidden="true"/><p className="eyebrow">Your next deployment starts here</p><h2>Stop rebuilding the same<br/>configuration by hand.</h2><p>No account. No cloud upload. Just clean infrastructure files you own.</p><Link href="/generator" className="landing-primary light">Open the generator <span>→</span></Link></section></main>;
 }
