@@ -25,6 +25,7 @@ export const defaultConfig: GeneratorConfig = {
 
 export const frameworkDefaults: Record<ProjectFramework, Partial<GeneratorConfig>> = {
   nextjs: { framework: "nextjs", nodeVersion: "22", applicationPort: 3000 },
+  react: { framework: "react", nodeVersion: "22", applicationPort: 8080 },
   "spring-boot": { framework: "spring-boot", javaVersion: "21", buildTool: "gradle", applicationPort: 8080 },
 };
 

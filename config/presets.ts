@@ -5,6 +5,7 @@ export interface Preset { id: string; name: string; description: string; config:
 const preset = (overrides: Partial<GeneratorConfig>): GeneratorConfig => ({ ...defaultConfig, ...overrides });
 export const presets: Preset[] = [
   { id: "next-docker", name: "Next.js + Docker", description: "Standalone Node.js container", config: preset({ projectName: "next-app", includeDockerfile: true }) },
+  { id: "react-docker", name: "React + Docker", description: "Vite build served by Nginx", config: preset({ projectName: "react-app", framework: "react", applicationPort: 8080, includeDockerfile: true }) },
   { id: "next-postgres", name: "Next.js + PostgreSQL", description: "Docker Compose development stack", config: preset({ projectName: "next-postgres", database: "postgres", includeDockerCompose: true }) },
   { id: "spring-postgres", name: "Spring Boot + PostgreSQL", description: "Gradle and Docker Compose", config: preset({ projectName: "spring-api", framework: "spring-boot", applicationPort: 8080, database: "postgres", includeDockerCompose: true }) },
   { id: "next-nginx", name: "Next.js production + Nginx", description: "Containerized reverse proxy", config: preset({ projectName: "next-production", includeDockerCompose: true, includeNginx: true }) },

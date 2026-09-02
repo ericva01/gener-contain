@@ -81,7 +81,7 @@ metadata:
   namespace: ${name}
 type: Opaque
 stringData:
-  ${config.framework === "nextjs" ? "DATABASE_URL" : "SPRING_DATASOURCE_PASSWORD"}: REPLACE_ME${hasDb ? "\n  POSTGRES_PASSWORD: REPLACE_ME" : ""}`));
+  ${config.framework !== "spring-boot" ? "DATABASE_URL" : "SPRING_DATASOURCE_PASSWORD"}: REPLACE_ME${hasDb ? "\n  POSTGRES_PASSWORD: REPLACE_ME" : ""}`));
   if (hasDb) files.push(
     file("k8s/postgres.yml", `apiVersion: apps/v1
 kind: Deployment

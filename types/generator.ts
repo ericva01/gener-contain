@@ -1,4 +1,4 @@
-export type ProjectFramework = "nextjs" | "spring-boot";
+export type ProjectFramework = "nextjs" | "react" | "spring-boot";
 export type DatabaseType = "none" | "postgres";
 export type BuildTool = "gradle" | "maven";
 export type PublishMode = "git" | "docker" | "git-docker";

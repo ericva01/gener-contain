@@ -25,6 +25,21 @@ export function loadConfiguration(): GeneratorConfig | null {
 }
 export function saveConfiguration(config: GeneratorConfig) { localStorage.setItem(STORAGE_KEY, exportConfiguration(config)); }
 
+export function encodeSharedConfiguration(config: GeneratorConfig): string {
+  const bytes = new TextEncoder().encode(JSON.stringify(config));
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+export function decodeSharedConfiguration(value: string): GeneratorConfig {
+  try {
+    const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+    const binary = atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "="));
+    const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+    return importConfiguration(new TextDecoder().decode(bytes));
+  } catch { throw new Error("This share link contains an invalid configuration."); }
+}
+
 export function sanitizeProjectName(value: string): string {
   const safe = value.toLowerCase().trim().replace(/[^a-z0-9-]+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "").slice(0, 63).replace(/-$/g, "");
   return safe || "configcraft-project";

@@ -7,7 +7,8 @@ ConfigCraft is an open-source, browser-only generator for production-ready DevOp
 ## Features
 
 - Versioned, strongly typed configuration with runtime validation, presets, JSON import/export, and local persistence
-- Next.js and Spring Boot (Gradle or Maven) production Docker images
+- Private, backend-free share links and a line-by-line view of the latest configuration change
+- Next.js, React (Vite), and Spring Boot (Gradle or Maven) production Docker images
 - PostgreSQL-aware Compose, safe environment examples, Nginx, CI, and Kubernetes resources
 - Per-file preview, copy, download, and path-safe ZIP download
 - Responsive accessible UI with no account, backend, telemetry, or external service

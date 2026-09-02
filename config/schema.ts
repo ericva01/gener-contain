@@ -7,7 +7,7 @@ const version = z.string().regex(/^\d+(?:\.\d+){0,2}$/, "Enter a numeric version
 const port = z.number().int("Use a whole number.").min(1, "Port must be at least 1.").max(65535, "Port cannot exceed 65535.");
 
 export const generatorConfigSchema = z.object({
-  schemaVersion: z.literal(1), projectName, framework: z.enum(["nextjs", "spring-boot"]),
+  schemaVersion: z.literal(1), projectName, framework: z.enum(["nextjs", "react", "spring-boot"]),
   nodeVersion: version, javaVersion: version, buildTool: z.enum(["gradle", "maven"]),
   database: z.enum(["none", "postgres"]), applicationPort: port, databasePort: port,
   includeDockerfile: z.boolean(), includeDockerIgnore: z.boolean(), includeDockerCompose: z.boolean(),

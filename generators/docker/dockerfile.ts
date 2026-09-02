@@ -27,6 +27,21 @@ EXPOSE ${config.applicationPort}
 CMD ["node", "server.js"]
 ` };
 
+  if (config.framework === "react") return { path: "Dockerfile", language: "dockerfile", content: `ARG NODE_VERSION=${config.nodeVersion}
+FROM node:\${NODE_VERSION}-alpine AS builder
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:1.29-alpine AS runner
+COPY --from=builder /app/dist /usr/share/nginx/html
+RUN printf 'server { listen ${config.applicationPort}; server_name _; root /usr/share/nginx/html; index index.html; location / { try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
+EXPOSE ${config.applicationPort}
+CMD ["nginx", "-g", "daemon off;"]
+` };
+
   const build = config.buildTool === "gradle"
     ? { image: `gradle:8-jdk${config.javaVersion}-alpine`, copy: "COPY gradlew settings.gradle* build.gradle* ./\nCOPY gradle ./gradle\nRUN ./gradlew dependencies --no-daemon || true\nCOPY . .", command: "RUN ./gradlew bootJar --no-daemon", jar: "build/libs/*.jar" }
     : { image: `maven:3.9-eclipse-temurin-${config.javaVersion}-alpine`, copy: "COPY mvnw pom.xml ./\nCOPY .mvn ./.mvn\nRUN ./mvnw dependency:go-offline -B\nCOPY . .", command: "RUN ./mvnw package -DskipTests -B", jar: "target/*.jar" };

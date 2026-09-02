@@ -2,7 +2,7 @@ import type { GeneratedFile, GeneratorConfig } from "@/types/generator";
 
 export function generateCompose(config: GeneratorConfig): GeneratedFile {
   const postgres = config.database === "postgres";
-  const appEnv = postgres ? (config.framework === "nextjs"
+  const appEnv = postgres ? (config.framework !== "spring-boot"
     ? `      DATABASE_URL: postgresql://\${POSTGRES_USER}:\${POSTGRES_PASSWORD}@postgres:5432/\${POSTGRES_DB}`
     : `      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/\${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: \${POSTGRES_USER}

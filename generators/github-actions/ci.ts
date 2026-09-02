@@ -1,6 +1,6 @@
 import type { GeneratedFile, GeneratorConfig } from "@/types/generator";
 export function generateGitHubActions(config: GeneratorConfig): GeneratedFile {
-  const steps = config.framework === "nextjs" ? `      - uses: actions/setup-node@v7
+  const steps = config.framework !== "spring-boot" ? `      - uses: actions/setup-node@v7
         with:
           node-version: ${config.nodeVersion}
           cache: npm

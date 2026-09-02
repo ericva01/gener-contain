@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { defaultConfig } from "@/config/defaults";
 import { validateConfig } from "@/config/schema";
-import { exportConfiguration, importConfiguration, isSafeArchivePath, sanitizeProjectName } from "@/lib/configuration";
+import { decodeSharedConfiguration, encodeSharedConfiguration, exportConfiguration, importConfiguration, isSafeArchivePath, sanitizeProjectName } from "@/lib/configuration";
 
 describe("configuration", () => {
   it("accepts the defaults", () => expect(validateConfig(defaultConfig).success).toBe(true));
@@ -11,6 +11,7 @@ describe("configuration", () => {
     expect(result.errors.projectName).toBeTruthy(); expect(result.errors.applicationPort).toBeTruthy();
   });
   it("imports an exported configuration", () => expect(importConfiguration(exportConfiguration(defaultConfig))).toEqual(defaultConfig));
+  it("round-trips share links", () => expect(decodeSharedConfiguration(encodeSharedConfiguration({ ...defaultConfig, framework: "react" }))).toEqual({ ...defaultConfig, framework: "react" }));
   it("rejects invalid and unsupported JSON", () => {
     expect(() => importConfiguration("nope")).toThrow("not valid JSON");
     expect(() => importConfiguration('{"schemaVersion":99}')).toThrow("Unsupported configuration version");
